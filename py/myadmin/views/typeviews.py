@@ -96,7 +96,7 @@ def index(request):
             t = Classify.objects.get(id=x.pid)
             x.pname = t.name
     num  = x.path.count(',')-1
-    print(num)
+
     x.name = (num*'|----')+x.name
 
     # 导入分页类
@@ -148,6 +148,8 @@ def delete(request):
 def edit(request):
     # 接受参数
     uid = request.GET.get('uid',None)
+    if not uid:
+        return HttpResponse('<script>alert("没有数据返回返回上一页");location.href="'+reverse('myadmin_goods_list')+'"</script>')
      # 获取对象
     print(uid)
     ob = Classify.objects.get(id=uid)

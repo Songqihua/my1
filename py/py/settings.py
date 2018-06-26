@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '%%8!yd_@i1oaum8jx@w3m6qx9jko%^@zmxfr!s6+=9rtjd=n06'
+SECRET_KEY = '#kw7*t7%+ydxiqe4sj4z95dioh+(_@bg(y@^ni*z!0@1szv0!9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,8 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'myadmin',
     'myhome',
+    'myadmin',
+    'ueditor',
 ]
 
 MIDDLEWARE = [
@@ -75,10 +76,17 @@ WSGI_APPLICATION = 'py.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'py10',#选择数据库的名,请确认你的mysql中有这个库
+        'NAME': 'py11',#选择数据库的名,请确认你的mysql中有这个库
         'USER': 'root',
         'PASSWORD': '123456',
         'HOST': 'localhost',
