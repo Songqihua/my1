@@ -56,7 +56,7 @@ def add(request):
 def index(request):
 
     
-
+   
     # 获取搜索条件
     types = request.GET.get('type',None)
 
@@ -79,6 +79,11 @@ def index(request):
             tlist = Classify.objects.filter(name__contains=keywords)
         
         elif types == 'pid':
+          if keywords == '顶级分类':
+            tlist=Classify.objects.filter(pid__contains=0)
+          else:
+            keywords=Classify.objects.get(name=keywords).id
+
             # 按照所属父级搜索
             tlist = Classify.objects.filter(pid__contains=keywords)
 
@@ -86,21 +91,22 @@ def index(request):
         # 获取所有的用户数据
         tlist = Classify.objects.all()
 
-
+    # tlist = getclassifyorder()
 
     for x in tlist:
-        if x.pid ==0:
+        if x.pid == 0:
             x.pname = '顶级分类'
         else:
             # print(x.pid,type(x.pid))
             t = Classify.objects.get(id=x.pid)
             x.pname = t.name
-    num  = x.path.count(',')-1
+        num  = x.path.count(',')-1
 
-    x.name = (num*'|----')+x.name
-
+        x.name = (num*'|----')+x.name
+    
     # 导入分页类
     from django.core.paginator import Paginator
+
     # 实例化分页对象,参数1,数据集合,参数2 每页显示条数
     paginator = Paginator(tlist, 10)
     # 获取当前页码数
@@ -113,6 +119,7 @@ def index(request):
     context = {'tlist':t_list,'tl':tlist}
 
     return render(request,'myadmin/classify/list.html',context)
+
 
 
 

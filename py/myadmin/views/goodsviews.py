@@ -40,9 +40,67 @@ def add(request):
             return HttpResponse('<script>alert("添加失败");location.href="'+reverse('myadmin_goods_add')+'"</script>')
 def index(request):
 
-    glist = Goods.objects.all()
 
-    context = {'glist':glist}
+    # 获取搜索条件
+    types = request.GET.get('type',None)
+
+    keywords = request.GET.get('keywords',None)
+  
+    # 判断是否具有搜索条件
+
+    if types:
+        # 有搜索条件
+        if types == 'all':
+            # 全条件搜索
+            # select * from user where username like '%aa%' 
+            try:
+
+                from django.db.models import Q
+                glist = Goods.objects.filter(
+                    Q(title__contains=keywords)|
+                    Q(status__contains=keywords)|
+                    Q(keywords=keywords)
+                )
+            except:
+                from django.db.models import Q
+                glist = Goods.objects.filter(
+                    Q(title__contains=keywords)|
+                    Q(status__contains=keywords)
+                )
+
+        elif types == 'title':
+            # 按照商品名名搜索
+            glist = Goods.objects.filter(title__contains=keywords)
+        elif types == 'typeid':
+            
+                keywords=Classify.objects.get(name=keywords).id
+                glist = Goods.objects.filter(typeid=keywords)
+        
+        elif types == 'status':
+            # 按照 sex 搜索
+            glist = Goods.objects.filter(status__contains=keywords)
+
+    else:
+        # 获取所有的用户数据
+        glist = Goods.objects.all()
+
+
+    # glist = Goods.objects.all()
+
+    # 导入分页类
+    from django.core.paginator import Paginator
+    # 实例化分页对象,参数1,数据集合,参数2 每页显示条数
+    paginator = Paginator(glist, 3)
+    # 获取当前页码数
+    p = request.GET.get('p',1)
+    # 获取当前页的数据
+    t_list = paginator.page(p)
+
+    num = paginator.page_range
+
+
+
+    context = {'glist':t_list,'num':num}
 
     return render(request,'myadmin/goods/list.html',context)
 
@@ -74,8 +132,10 @@ def edit(request):
 
     if request.method == 'GET':
        
+        tlist = getclassifyorder()
+
         # 分配数据
-        context = {'uinfo':ob}
+        context = {'uinfo':ob,'tlist':tlist}
         # 显示编辑页面
         return render(request,'myadmin/goods/edit.html',context)
 
@@ -92,6 +152,8 @@ def edit(request):
         ob.descr = request.POST['descr']
         ob.price = request.POST['price']
         ob.store = request.POST['store']
+        ob.status = request.POST['status']
+        ob.typeid = Classify.objects.get(id =request.POST['typeid'])
         # a=request.POST['name']
         # print(ob.name)
         # return HttpResponse(a)

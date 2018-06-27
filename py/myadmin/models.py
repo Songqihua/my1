@@ -29,15 +29,15 @@ class Classify(models.Model):
 
 class  Goods(models.Model):
     # 一对多
-    typeid =  models.ForeignKey(to="Classify", to_field="id")
-    title = models.CharField(max_length=255)
-    descr = models.CharField(max_length=255,null=True)
+    typeid =  models.ForeignKey(to="Classify", to_field="id")#类别id
+    title = models.CharField(max_length=255)#商品名称
+    descr = models.CharField(max_length=255,null=True)#简介
     info = models.TextField(null=True)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    pics = models.CharField(max_length=100)
+    price = models.DecimalField(max_digits=10, decimal_places=2)#价格
+    pics = models.CharField(max_length=100)#图片名
     # 0 新发布,1下架
-    status = models.IntegerField(default=0)
-    store = models.IntegerField(default=0)
-    num = models.IntegerField(default=0)
-    clicknum = models.IntegerField(default=0)
-    addtime = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=50,default='在售')#状态
+    store = models.IntegerField(default=0)#库存量
+    num = models.IntegerField(default=0)#被购买数量
+    clicknum = models.IntegerField(default=0)#点击次数
+    addtime = models.DateTimeField(auto_now_add=True)#添加时间

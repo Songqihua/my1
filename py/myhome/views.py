@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-from myadmin.models import Users
+from myadmin.models import Users,Classify,Goods
 
 from django.contrib.auth.hashers import make_password, check_password
 
@@ -9,18 +9,99 @@ from django.contrib.auth.hashers import make_password, check_password
 
 # 首页
 def index(request):
+    '''
+        [
+            {
+            'name':'点心/蛋糕',
+            'sub':[
+                    {'name':'点心',
+                        'goodssub':[
+                            {goods objects},
+                            {goods objects},
+                            {goods objects}
+                        ]
+                    },
+                    
+                    {'name':'蛋糕',
+                        'goodssub':[
+                            {goods objects},
+                            {goods objects},
+                            {goods objects}
+                        ]
+                    }
+                ]
+            },
+            
+            {
+            'name':'饼干/膨化',
+            'sub':[
+                    {'name':'饼干','goodssub':[{goods objects},{goods objects},{goods objects}]},
+                    {'name':'膨化','goodssub':[{goods objects},{goods objects},{goods objects}]}
+                ]
+            },
+        ]
+    '''
 
-    return render(request,'myhome/index.html')
+    # 先获取所有的顶级分类
+    data = Classify.objects.filter(pid=0)
+
+    erdata = []
+    for x in data:
+        # 获取当前类下的子类
+        x.sub = Classify.objects.filter(pid=x.id)
+        for v in x.sub:
+            #获取当前子类下的商品 
+            v.goodssub = Goods.objects.filter(typeid=v.id)
+            erdata.append(v)
+            
+
+
+
+    context = {'typegoodslist':data,'erdata':erdata}
+    return render(request,'myhome/index.html',context)
 
 # 列表
-def list(request):
-    
-    return render(request,'myhome/list.html')
+def list(request,tid):
+
+    # 根据分类id获取商品信息
+    data = Goods.objects.filter(typeid=tid)
+
+
+
+    context = {'goodslist':data}
+
+    return render(request,'myhome/list.html',context)
+
+
+# 搜索
+def search(request):
+
+    # 获取搜索参数
+    keywords = request.GET.get('keywords',None)
+    if not keywords:
+        return HttpResponse('<script>history.back(-1)</script>')
+
+    #商品的模糊搜索
+    data = Goods.objects.filter(title__contains=keywords)
+
+
+    context = {'goodslist':data}
+
+    return render(request,'myhome/search.html',context)
+
 
 # 详情
-def info(request):
+def info(request,sid):
+    try:
+        # 根据商品id获取商品信息
+        data = Goods.objects.get(id=sid)
+
+        context = {'ginfo':data}
+        return render(request,'myhome/info.html',context)
+        
+    except:
+        pass
     
-    return render(request,'myhome/info.html')
 
 # 登录
 def login(request):
