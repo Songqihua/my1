@@ -99,7 +99,7 @@
         <div class="item-inform">
             <div class="clearfixLeft" id="clearcontent">
                 <div class="box">
-                    <script type="text/javascript">$(document).ready(function() {
+                    <script type="text/javascript">$(document).ready(function(){
                             $(".jqzoom").imagezoom();
                             $("#thumblist li a").click(function() {
                                 $(this).parents("li").addClass("tb-selected").siblings().removeClass("tb-selected");
@@ -128,97 +128,18 @@
                             <dt>促销价</dt>
                             <dd>
                                 <em>¥</em>
-                                <b class="sys_item_price">56.90</b></dd>
+                                <b class="sys_item_price">{{ ginfo.price }}</b></dd>
                         </li>
-                        <li class="price iteminfo_mktprice">
+                        <li class="price iteminfo_mktprice" >
                             <dt>原价</dt>
                             <dd>
                                 <em>¥</em>
-                                <b class="sys_item_mktprice">98.00</b></dd>
+                                {% load pagetag %}
+                                <b class="sys_item_mktprice">{{ ginfo.price|pricetwo}}</b></dd>
                         </li>
                         <div class="clear"></div>
                     </div>
-                    <!--地址-->
-                    <dl class="iteminfo_parameter freight">
-                        <dt>配送至</dt>
-                        <div class="iteminfo_freprice">
-                            <div class="am-form-content address">
-                                <select data-am-selected="" style="display: none;">
-                                    <option value="a">浙江省</option>
-                                    <option value="b">湖北省</option></select>
-                                <div class="am-selected am-dropdown " id="am-selected-xsh6m" data-am-dropdown="">
-                                    <button type="button" class="am-selected-btn am-btn am-dropdown-toggle am-btn-default">
-                                        <span class="am-selected-status am-fl">浙江省</span>
-                                        <i class="am-selected-icon am-icon-caret-down"></i>
-                                    </button>
-                                    <div class="am-selected-content am-dropdown-content">
-                                        <h2 class="am-selected-header">
-                                            <span class="am-icon-chevron-left">返回</span></h2>
-                                        <ul class="am-selected-list">
-                                            <li class="am-checked" data-index="0" data-group="0" data-value="a">
-                                                <span class="am-selected-text">浙江省</span>
-                                                <i class="am-icon-check"></i>
-                                            </li>
-                                            <li class="" data-index="1" data-group="0" data-value="b">
-                                                <span class="am-selected-text">湖北省</span>
-                                                <i class="am-icon-check"></i>
-                                            </li>
-                                        </ul>
-                                        <div class="am-selected-hint"></div>
-                                    </div>
-                                </div>
-                                <select data-am-selected="" style="display: none;">
-                                    <option value="a">温州市</option>
-                                    <option value="b">武汉市</option></select>
-                                <div class="am-selected am-dropdown " id="am-selected-qi8bq" data-am-dropdown="">
-                                    <button type="button" class="am-selected-btn am-btn am-dropdown-toggle am-btn-default">
-                                        <span class="am-selected-status am-fl">温州市</span>
-                                        <i class="am-selected-icon am-icon-caret-down"></i>
-                                    </button>
-                                    <div class="am-selected-content am-dropdown-content">
-                                        <h2 class="am-selected-header">
-                                            <span class="am-icon-chevron-left">返回</span></h2>
-                                        <ul class="am-selected-list">
-                                            <li class="am-checked" data-index="0" data-group="0" data-value="a">
-                                                <span class="am-selected-text">温州市</span>
-                                                <i class="am-icon-check"></i>
-                                            </li>
-                                            <li class="" data-index="1" data-group="0" data-value="b">
-                                                <span class="am-selected-text">武汉市</span>
-                                                <i class="am-icon-check"></i>
-                                            </li>
-                                        </ul>
-                                        <div class="am-selected-hint"></div>
-                                    </div>
-                                </div>
-                                <select data-am-selected="" style="display: none;">
-                                    <option value="a">瑞安区</option>
-                                    <option value="b">洪山区</option></select>
-                                <div class="am-selected am-dropdown " id="am-selected-yvrd9" data-am-dropdown="">
-                                    <button type="button" class="am-selected-btn am-btn am-dropdown-toggle am-btn-default">
-                                        <span class="am-selected-status am-fl">瑞安区</span>
-                                        <i class="am-selected-icon am-icon-caret-down"></i>
-                                    </button>
-                                    <div class="am-selected-content am-dropdown-content">
-                                        <h2 class="am-selected-header">
-                                            <span class="am-icon-chevron-left">返回</span></h2>
-                                        <ul class="am-selected-list">
-                                            <li class="am-checked" data-index="0" data-group="0" data-value="a">
-                                                <span class="am-selected-text">瑞安区</span>
-                                                <i class="am-icon-check"></i>
-                                            </li>
-                                            <li class="" data-index="1" data-group="0" data-value="b">
-                                                <span class="am-selected-text">洪山区</span>
-                                                <i class="am-icon-check"></i>
-                                            </li>
-                                        </ul>
-                                        <div class="am-selected-hint"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="pay-logis">快递
-                                <b class="sys_item_freprice">10</b>元</div></div>
-                    </dl>
+
                     <div class="clear"></div>
                     <!--销量-->
                     <ul class="tm-ind-panel">
@@ -255,37 +176,7 @@
                                 <div class="theme-popbod dform">
                                     <form class="theme-signin" name="loginform" action="" method="post">
                                         <div class="theme-signin-left">
-                                            <div class="theme-options">
-                                                <div class="cart-title">口味</div>
-                                                <ul>
-                                                    <li class="sku-line selected">原味
-                                                        <i></i>
-                                                    </li>
-                                                    <li class="sku-line">奶油
-                                                        <i></i>
-                                                    </li>
-                                                    <li class="sku-line">炭烧
-                                                        <i></i>
-                                                    </li>
-                                                    <li class="sku-line">咸香
-                                                        <i></i>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="theme-options">
-                                                <div class="cart-title">包装</div>
-                                                <ul>
-                                                    <li class="sku-line selected">手袋单人份
-                                                        <i></i>
-                                                    </li>
-                                                    <li class="sku-line">礼盒双人份
-                                                        <i></i>
-                                                    </li>
-                                                    <li class="sku-line">全家福礼包
-                                                        <i></i>
-                                                    </li>
-                                                </ul>
-                                            </div>
+                                           
                                             <div class="theme-options">
                                                 <div class="cart-title number">数量</div>
                                                 <dd>
@@ -293,21 +184,14 @@
                                                     <input id="text_box" name="" type="text" value="1" style="width:30px;">
                                                     <input id="add" class="am-btn am-btn-default" name="" type="button" value="+">
                                                     <span id="Stock" class="tb-hidden">库存
-                                                        <span class="stock">1000</span>件</span></dd>
+                                                        <span class="stock">{{ ginfo.store }}</span>件</span></dd>
                                             </div>
                                             <div class="clear"></div>
                                             <div class="btn-op">
                                                 <div class="btn am-btn am-btn-warning">确认</div>
                                                 <div class="btn close am-btn am-btn-warning">取消</div></div>
                                         </div>
-                                        <div class="theme-signin-right">
-                                            <div class="img-info">
-                                                <img src="/static/myhome/images/songzi.jpg"></div>
-                                            <div class="text-info">
-                                                <span class="J_Price price-now">¥39.00</span>
-                                                <span id="Stock" class="tb-hidden">库存
-                                                    <span class="stock">1000</span>件</span></div>
-                                        </div>
+                                       
                                     </form>
                                 </div>
                             </div>
@@ -346,11 +230,11 @@
                     </div>
                     <li>
                         <div class="clearfix tb-btn tb-btn-buy theme-login">
-                            <a id="LikBuy" title="点此按钮到下一步确认购买信息" href="#">立即购买</a></div>
+                            <a id="LikBuy" title="点此按钮到下一步确认购买信息" href="javascript:void(0)">立即购买</a></div>
                     </li>
                     <li>
                         <div class="clearfix tb-btn tb-btn-basket theme-login">
-                            <a id="LikBasket" title="加入购物车" href="#">
+                            <a id="LikBasket" title="加入购物车" href="javascript:void(0)">
                                 <i>
                                 </i>加入购物车</a>
                         </div>
@@ -358,51 +242,29 @@
                 </div>
             </div>
             <div class="clear"></div>
+        <script type="text/javascript">
+            // 购物车
+            $('#LikBasket').click(function(){
+                // 获取购买的商品数量,商品id
+                var num = $('#text_box').val()
+                var sid = {{ ginfo.id }}
+
+                
+                // 发生ajax请求,加入购物车
+                $.get('{% url "myhome_addcart" %}',{sid:sid,num:num},function(data){
+                    if(data == '1'){
+                        alert('加入购物车成功')
+                    }else{
+                        alert('加入购物车失败')
+                    }
+                })
+
+
+            })
+
+        </script>
         </div>
-        <!--优惠套装-->
-        <div class="match">
-            <div class="match-title">优惠套装</div>
-            <div class="match-comment">
-                <ul class="like_list">
-                    <li>
-                        <div class="s_picBox">
-                            <a class="s_pic" href="#">
-                                <img src="/static/myhome/images/cp.jpg"></a>
-                        </div>
-                        <a class="txt" target="_blank" href="#">萨拉米 1+1小鸡腿</a>
-                        <div class="info-box">
-                            <span class="info-box-price">¥ 29.90</span>
-                            <span class="info-original-price">￥ 199.00</span></div>
-                    </li>
-                    <li class="plus_icon">
-                        <i>+</i>
-                    </li>
-                    <li>
-                        <div class="s_picBox">
-                            <a class="s_pic" href="#">
-                                <img src="/static/myhome/images/cp2.jpg"></a>
-                        </div>
-                        <a class="txt" target="_blank" href="#">ZEK 原味海苔</a>
-                        <div class="info-box">
-                            <span class="info-box-price">¥ 8.90</span>
-                            <span class="info-original-price">￥ 299.00</span></div>
-                    </li>
-                    <li class="plus_icon">
-                        <i>=</i>
-                    </li>
-                    <li class="total_price">
-                        <p class="combo_price">
-                            <span class="c-title">套餐价:</span>
-                            <span>￥35.00</span></p>
-                        <p class="save_all">共省:
-                            <span>￥463.00</span></p>
-                        <a href="#" class="buy_now">立即购买</a></li>
-                    <li class="plus_icon">
-                        <i class="am-icon-angle-right"></i>
-                    </li>
-                </ul>
-            </div>
-        </div>
+       
         <div class="clear"></div>
         <!-- introduce-->
         <div class="introduce">
@@ -1039,4 +901,5 @@
             </div>
         </div>
     </div>
+
 {% endblock %}

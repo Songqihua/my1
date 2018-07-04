@@ -99,7 +99,6 @@ def index(request):
     num = paginator.page_range
 
 
-
     context = {'glist':t_list,'num':num}
 
     return render(request,'myadmin/goods/list.html',context)
